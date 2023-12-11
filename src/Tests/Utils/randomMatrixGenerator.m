@@ -18,7 +18,6 @@ function A = randomMatrixGenerator(p, scale)
         % Generowanie symetrycznych bloków poza przekątną
         for i = 1:2
             A_ij = sqrt(scale) .* randn(p, p);
-            % A_ij = (A_ij + A_ij') / 2; % Zapewnienie symetrii
             A((i-1)*p+1:i*p, i*p+1:(i+1)*p) = A_ij;
             A(i*p+1:(i+1)*p, (i-1)*p+1:i*p) = A_ij'; % Wstawianie transpozycji
         end

@@ -1,4 +1,4 @@
-function cbSolveErrorPlot(maxP, scales, x_scale, n)
+function cbSolveErrorPlot(appAxes, maxP, scales, x_scale, n)
     % Przygotowanie danych do wykresu
     pValues = 1:maxP; % Zakres wartości p
     errors = zeros(maxP, length(scales)); % Inicjalizacja tablicy na błędy
@@ -12,14 +12,15 @@ function cbSolveErrorPlot(maxP, scales, x_scale, n)
         end
     end
 
-    % Rysowanie wykresu
-    plot(pValues, errors, 'LineWidth', 2);
-    xlabel('Wartość p');
-    ylabel('Średni błąd');
-    title('Średni błąd obliczeniowy dla różnych wartości p i scale');
+    % Rysowanie wykresu na podanym osiach (appAxes)
+    plot(appAxes, pValues, errors, 'LineWidth', 2);
+    xlabel(appAxes, 'Wartość p');
+    ylabel(appAxes, 'Średni błąd');
+    title(appAxes, 'Średni błąd obliczeniowy dla różnych wartości p i scale');
+    legendLabels = cell(1, length(scales));
     for i = 1:length(scales)
         legendLabels{i} = ['scale = ' num2str(scales(i))];
     end
-    legend(legendLabels, 'Location', 'best');
-    grid on;
+    legend(appAxes, legendLabels, 'Location', 'best');
+    grid(appAxes, 'on');
 end

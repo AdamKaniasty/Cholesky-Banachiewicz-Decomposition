@@ -1,32 +1,28 @@
-function resultsTable = cbError(maxA, maxB)
-    nIterations = 25; % Liczba iteracji dla każdej pary parametrów
-    results = []; % Inicjalizacja tablicy do przechowywania wyników
+function errorMatrix = cbError(maxA, maxB)
+    nIterations = 20; % Number of iterations for each pair of parameters
+    errorMatrix = zeros(maxA, maxB); % Initialize a matrix to store the errors
 
     for a = 1:maxA
         for b = 1:maxB
             totalError = 0;
             for i = 1:nIterations
-                % Generowanie macierzy A przy użyciu randomMatrixGenerator
+                % Generate matrix A using randomMatrixGenerator
                 A = randomMatrixGenerator(a, b);
 
-                % Rozkład A za pomocą decomposition
+                % Decompose A using decomposition
                 L = decomposition(A);
 
-                % Obliczanie błędu przy użyciu differenceCheck
+                % Calculate error using differenceCheck
                 error = sum(sum(differenceCheck(A, L, false))) / sum(sum(A));
                 
-                % Sumowanie błędów
+                % Summing up the errors
                 totalError = totalError + error;
             end
 
-            % Obliczanie średniego błędu
+            % Calculate average error
             avgError = totalError / nIterations;
 
-            % Dodanie wyników do tablicy
-            results = [results; a, b, abs(avgError)];
+            % Store the average error in the matrix
+            errorMatrix(a, b) = abs(avgError);
         end
     end
-
-    % Przekształcenie wyników na tabelę
-    resultsTable = array2table(results, 'VariableNames', {'P value', 'Scale', 'AverageError'});
-end
