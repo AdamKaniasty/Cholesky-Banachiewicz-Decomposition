@@ -1,4 +1,4 @@
-function L = decomposition(A)
+function L = normalDecomposition(A)
     %DECOMPOSITION Summary of this function goes here
     %   Detailed explanation goes here
     [n, m] = size(A);

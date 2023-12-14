@@ -1,4 +1,4 @@
-function errors = cbSolveErrorForA(A, x_scale, n)
+function errors = cbSolveErrorForA(A, x_scale, n, decomposition)
     errors = zeros(1, x_scale);
 
     for x = 1:x_scale
@@ -12,7 +12,7 @@ function errors = cbSolveErrorForA(A, x_scale, n)
             b = systems(i).b;
 
             % Rozwiązanie układu równań Ax = b
-            estimatedX = solve(A, b);
+            estimatedX = blockSolve(A, b, decomposition);
 
             % Obliczanie błędu (na przykład normy euklidesowej różnicy wektorów)
             error = norm(trueX - estimatedX);

@@ -1,4 +1,4 @@
-function avgError = cbSolveError(p, scale, x_scale, n)
+function avgError = cbSolveError(p, scale, x_scale, n, solve, decomposition)
     totalError = 0;
 
     for i = 1:n
@@ -16,7 +16,7 @@ function avgError = cbSolveError(p, scale, x_scale, n)
             b = systems(j).b;
 
             % Rozwiązanie układu równań Ax = b
-            estimatedX = solve(A, b);
+            estimatedX = solve(A, b, decomposition);
 
             % Obliczanie błędu (na przykład normy euklidesowej różnicy wektorów)
             error = norm(trueX - estimatedX);

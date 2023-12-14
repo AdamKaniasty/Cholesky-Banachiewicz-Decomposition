@@ -1,8 +1,8 @@
 function A = randomMatrixGenerator(p, scale)
     % Parametry macierzy blokowej
     n = 3*p; % całkowity wymiar macierzy
-    posdef = 0;
-    while(posdef == 0)
+    posdef = 1;
+    while(posdef ~= 0)
         A = zeros(n, n); % inicjalizacja macierzy zerami
 
         % Generowanie losowych, dodatnich wartości własnych dla każdego bloku
@@ -17,7 +17,10 @@ function A = randomMatrixGenerator(p, scale)
 
         % Generowanie symetrycznych bloków poza przekątną
         for i = 1:2
-            A_ij = sqrt(scale) .* randn(p, p);
+            Q = orth(randn(p)); % Macierz ortogonalna Q
+            Lambda = diag(eigenvalues(:, i));
+            A_ij = Q * Lambda * Q';
+            A_ij = A_ij .* 0.1;
             A((i-1)*p+1:i*p, i*p+1:(i+1)*p) = A_ij;
             A(i*p+1:(i+1)*p, (i-1)*p+1:i*p) = A_ij'; % Wstawianie transpozycji
         end
