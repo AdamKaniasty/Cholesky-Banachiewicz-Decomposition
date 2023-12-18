@@ -28,14 +28,14 @@ function examples = getExamples()
      examples{3}(1:3, 7:9) = zeros(3);
      examples{3}(7:9, 1:3) = zeros(3);
 
-     % Second matrix with very small values everywhere
+     
      small_value = 1e-6;
      examples{4} = small_value * ones(9, 9);
      examples{4} = examples{4} + 1e-4 * eye(size(examples{4}));
      examples{4}(1:3, 7:9) = zeros(3);
      examples{4}(7:9, 1:3) = zeros(3);
     
-     % Third matrix with very small values on the diagonal and large values in other blocks
+     
      examples{5} = large_value * (ones(9, 9) - eye(9));
      examples{5}(1:3, 1:3) = small_value * eye(3);
      examples{5}(4:6, 4:6) = small_value * eye(3);

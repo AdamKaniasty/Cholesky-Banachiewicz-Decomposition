@@ -1,6 +1,18 @@
 function L = normalDecomposition(A)
-    %DECOMPOSITION Summary of this function goes here
-    %   Detailed explanation goes here
+    % blockDecomposition Dokonuje blokowej dekompozycji Cholesky'ego-Banachiewicza
+    %
+    %   L = blockDecomposition(A) wykonuje blokową dekompozycję Cholesky'ego-Banachiewicza
+    %   na symetrycznej, dodatnio określonej macierzy kwadratowej A.
+    %
+    %   Wejście:
+    %       A - Macierz kwadratowa o wymiarach nxn, będąca symetryczną i dodatnio określoną
+    %       macierzą, która ma być poddana dekompozycji. Macierz musi spełniać warunek
+    %       kwadratowości, w przeciwnym razie funkcja zgłosi błąd.
+    %
+    %   Wyjście:
+    %       L - Macierz trójkątna dolna, będąca wynikiem dekompozycji Cholesky'ego-Banachiewicza
+    %       macierzy A. Macierz L jest tej samej wielkości co macierz wejściowa A.
+    %
     [n, m] = size(A);
     assert(n == m, "A must be a square matrix");
 

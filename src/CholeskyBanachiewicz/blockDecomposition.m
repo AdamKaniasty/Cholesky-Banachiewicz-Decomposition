@@ -1,8 +1,18 @@
 function L = blockDecomposition(A)
-    % This function performs a block Cholesky decomposition of a symmetric
-    % positive definite matrix A. The matrix is divided into blocks of size 
-    % 'blockSize'. The output is a lower triangular matrix L such that L*L' = A.
-
+    % blockDecomposition Dokonuje blokowej dekompozycji macierzy kwadratowej
+    %
+    %   Dokonuje blokowej dekompozycji macierzy kwadratowej A.
+    %   Macierz A jest dzielona na mniejsze bloki, które są następnie dekomponowane
+    %   osobno. Wynik dekompozycji każdego bloku jest umieszczany w macierzy L.
+    %
+    %   Wejście:
+    %       A - Macierz kwadratowa, która ma być poddana dekompozycji blokowej.
+    %           Macierz A musi być kwadratowa, w przeciwnym razie funkcja zgłosi błąd.
+    %
+    %   Wyjście:
+    %       L - Macierz wynikowa dekompozycji blokowej macierzy A. Macierz L ma taki sam
+    %           rozmiar jak macierz A i zawiera bloki wynikowe dekompozycji.
+    %
     [n, m] = size(A);
     if n ~= m
         error('Matrix A must be square');
@@ -13,16 +23,16 @@ function L = blockDecomposition(A)
     L = zeros(n);
 
     for i = 1:blockSize:n
-        % Determine the size of the current block
+        
         iblock = i:min(i+blockSize-1, n);
         
-        % Decompose the diagonal block
+        
         L(iblock, iblock) = normalDecomposition(A(iblock, iblock));
         if i + blockSize <= n
-            % Determine the range of the next block
+            
             nextBlock = (i+blockSize):n;
 
-            % Update the next block
+            
             L(nextBlock, iblock) = A(nextBlock, iblock) / L(iblock, iblock)';
         end
     end

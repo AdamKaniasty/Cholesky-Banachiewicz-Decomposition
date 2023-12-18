@@ -1,21 +1,44 @@
 function x = blockSolve(A, b, decomposition)
-    % Assuming the block Cholesky decomposition function is named 'blockCholesky'
-    % and it returns L such that A = L*L'
-    L = decomposition(A);  % Your block Cholesky decomposition function
+    % blockSolve Rozwiązuje układ równań liniowych przy użyciu dekompozycji blokowej
+    %
+    %   Rozwiązuje układ równań Ax = b, gdzie A jest
+    %   symetryczną, dodatnio określoną macierzą kwadratową. Funkcja wykorzystuje
+    %   podaną funkcję 'decomposition' do wykonania dekompozycji Cholesky'ego-Banachiewicza macierzy A,
+    %   a następnie stosuje podstawienie w przód i w tył do rozwiązania układu.
+    %
+    %   Wejście:
+    %       A - Macierz kwadratowa w układzie równań Ax = b.
+    %       b - Wektor wyrazów wolnych w układzie równań Ax = b.
+    %       decomposition - Funkcja do dekompozycji macierzy A.
+    %
+    %   Wyjście:
+    %       x - Rozwiązanie układu równań Ax = b.
     
-    % Forward substitution to solve L*y = b for y
+    L = decomposition(A);  
+    
     y = forwardSubstitutionBlock(L, b);
     
-    % Backward substitution to solve L'*x = y for x
     x = backwardSubstitutionBlock(L', y);
 end
 
 function y = forwardSubstitutionBlock(L, b)
+    % forwardSubstitutionBlock Wykonuje podstawienie w przód dla układu równań
+    %
+    %   Rozwiązuje układ równań Ly = b, gdzie L jest
+    %   dolną macierzą trójkątną uzyskaną z dekompozycji blokowej, a b jest wektorem.
+    %   Funkcja stosuje podstawienie w przód dla rozwiązania układu równań.
+    %
+    %   Wejście:
+    %       L - Dolna macierz trójkątna.
+    %       b - Wektor wyrazów wolnych w układzie równań Ly = b.
+    %
+    %   Wyjście:
+    %       y - Rozwiązanie układu równań Ly = b.
     n = size(L, 1);
-    blockSize = n / 3;  % Assuming that the block size is n/3 based on the 3p x 3p structure
+    blockSize = n / 3;  
     y = zeros(size(b));
     
-    for i = 1:3  % There are 3 blocks along the diagonal
+    for i = 1:3  
         blockStart = (i-1)*blockSize + 1;
         blockEnd = i*blockSize;
         L_ii = L(blockStart:blockEnd, blockStart:blockEnd);
@@ -30,11 +53,23 @@ function y = forwardSubstitutionBlock(L, b)
 end
 
 function x = backwardSubstitutionBlock(U, y)
+    % backwardSubstitutionBlock Wykonuje podstawienie w tył dla układu równań
+    %
+    %   Rozwiązuje układ równań Ux = y, gdzie U jest
+    %   górną macierzą trójkątną uzyskaną z dekompozycji blokowej, a y jest wektorem.
+    %   Funkcja stosuje podstawienie w tył dla rozwiązania układu równań.
+    %
+    %   Wejście:
+    %       U - Górna macierz trójkątna.
+    %       y - Wektor wyrazów wolnych w układzie równań Ux = y.
+    %
+    %   Wyjście:
+    %       x - Rozwiązanie układu równań Ux = y.
     n = size(U, 1);
-    blockSize = n / 3;  % Assuming the block size is n/3
+    blockSize = n / 3;  
     x = zeros(size(y));
     
-    for i = 3:-1:1  % There are 3 blocks along the diagonal
+    for i = 3:-1:1  
         blockStart = (i-1)*blockSize + 1;
         blockEnd = i*blockSize;
         U_ii = U(blockStart:blockEnd, blockStart:blockEnd);
