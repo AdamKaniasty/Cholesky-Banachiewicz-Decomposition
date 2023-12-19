@@ -26,13 +26,11 @@ function L = blockDecomposition(A)
         
         iblock = i:min(i+blockSize-1, n);
         
-        
         L(iblock, iblock) = normalDecomposition(A(iblock, iblock));
         if i + blockSize <= n
             
             nextBlock = (i+blockSize):n;
 
-            
             L(nextBlock, iblock) = A(nextBlock, iblock) / L(iblock, iblock)';
         end
     end

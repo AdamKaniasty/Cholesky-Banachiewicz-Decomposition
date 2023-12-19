@@ -11,11 +11,9 @@ function [errorMatrix, errorMatrix2] = cbError(maxA, maxB, decomposition, decomp
                 
                 A = randomMatrixGenerator(a, b);
 
-                
                 L = decomposition(A);
                 
                 L2 = decomposition_2(A);
-
                 
                 error = sum(sum(differenceCheck(A, L, false))) / size(A, 1) / size(A, 1);
                 

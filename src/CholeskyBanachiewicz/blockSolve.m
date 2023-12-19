@@ -47,7 +47,7 @@ function y = forwardSubstitutionBlock(L, b)
             y(blockStart:blockEnd) = L_ii \ b(blockStart:blockEnd);
         else
             sumLijYj = L(blockStart:blockEnd, 1:blockStart-1) * y(1:blockStart-1);
-            y(blockStart:blockEnd) = L_ii \ (b(blockStart:blockEnd) - sumLijYj);
+            y(blockStart:blockEnd) = (b(blockStart:blockEnd) - sumLijYj) \ L_ii;
         end
     end
 end
@@ -78,7 +78,7 @@ function x = backwardSubstitutionBlock(U, y)
             x(blockStart:blockEnd) = U_ii \ y(blockStart:blockEnd);
         else
             sumUijXj = U(blockStart:blockEnd, blockEnd+1:end) * x(blockEnd+1:end);
-            x(blockStart:blockEnd) = U_ii \ (y(blockStart:blockEnd) - sumUijXj);
+            x(blockStart:blockEnd) = (y(blockStart:blockEnd) - sumUijXj)\ U_ii;
         end
     end
 end
